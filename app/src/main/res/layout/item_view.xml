@@ -8,6 +8,6 @@
         android:layout_height="wrap_content"
         android:text="Text"
         android:gravity="center"
-        android:id="@+id/Text"/>
+        android:id="@+id/tvTextView"/>
 
 </LinearLayout>

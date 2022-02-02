@@ -1,6 +1,8 @@
 package com.galoppingtech.simplemvvm
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +11,41 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.galoppingtech.simplemvvm.Model.model
 import com.galoppingtech.simplemvvm.ViewModel.MainViewModel
+import com.galoppingtech.simplemvvm.databinding.ItemViewBinding
 
-class recyclerAdapter (val viewModel: MainViewModel, val arrayList: ArrayList<model>, val context: Context): RecyclerView.Adapter<recyclerAdapter.NotesViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): recyclerAdapter.NotesViewHolder {
-        var root = LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false)
-        return NotesViewHolder(root)
+class recyclerAdapter(
+    viewModel: MainViewModel,
+   val arrayList: ArrayList<model>,
+    mainActivity: MainActivity,
+   val  context: Context
+    ) : RecyclerView.Adapter<recyclerAdapter.NotesViewHolder>() {
+    val binding:ItemViewBinding? = null
+
+    inner class NotesViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
+        fun bind(blog: model) {
+            binding?.tvTextView?.text = blog.title
+
+
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
+        return NotesViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_view,
+                parent,
+                false
+            )
+        )
     }
 
 
 
+
     override fun onBindViewHolder(holder: recyclerAdapter.NotesViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
+
+        holder.bind(arrayList.get(position))
     }
 
     override fun getItemCount(): Int {
@@ -33,14 +56,12 @@ class recyclerAdapter (val viewModel: MainViewModel, val arrayList: ArrayList<mo
         }
         return arrayList.size
     }
-    inner class NotesViewHolder(private val binding: View) :RecyclerView.ViewHolder(binding) {
-        fun bind(blog: model){
-            //check the binding.
-         //  binding.Text.text= blog.title
 
-            }
-        }
 
-    }
+}
+//(val viewModel: MainViewModel, val arrayList: ArrayList<model>, val context: Context)
+
+
+
 
 
